@@ -10,8 +10,6 @@ defaultTasks 'clean', 'assemble', 'test'
 
 //    METADATA
 // ==============
-version = '3.0.0'
-description = 'Xenon: a middleware abstraction library that provides a simple programming interface to various compute and storage resources.'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
@@ -55,18 +53,6 @@ task wrapper(type: Wrapper) {
     group 'Build Setup'
     gradleVersion = '4.5'
 }
-
-//publishing {
-//    publications {
-//        MyPublication(MavenPublication) {
-//            from components.java
- //           groupId 'nl.esciencecenter.xenon'
-  //          artifactId 'xenon'
- //           version version
-//            artifact javadocJar
-//        }
-//    }
-//}
 
 // See progress of tests
 tasks.withType(Test) {
@@ -126,8 +112,8 @@ bintray {
         userOrg = 'nlesc'
         licenses = ['Apache-2.0']
         websiteUrl = 'https://nlesc.github.io/Xenon'
-        vcsUrl = 'https://github.com/NLeSC/Xenon.git'
-        issueTrackerUrl = 'https://github.com/NLeSC/Xenon/issues'
+        vcsUrl = 'https://github.com/NLeSC/xenon-adaptors-hadoop.git'
+        issueTrackerUrl = 'https://github.com/NLeSC/xenon-adaptors-hadoop/issues'
     }
     publications = ['MyPublication']
 }
