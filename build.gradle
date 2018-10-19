@@ -47,7 +47,11 @@ shadowJar {
 //   relocate 'org.aopalliance', shadowPrefix + 'org.aopalliance'
  //  relocate 'net.sf.cglib', shadowPrefix + 'net.sf.cglib'
 
-   relocate 'javax', shadowPrefix + 'javax'
+   relocate('javax', shadowPrefix + 'javax') {
+       exclude 'javax.security.auth.login.LoginException'
+       exclude 'javax.security.auth.login.Configuration'
+       exclude 'javax.security.auth.callback.CallbackHandler'
+   }
    relocate 'okio', shadowPrefix + 'okio'
    relocate 'com', shadowPrefix + 'com'
    relocate 'net', shadowPrefix + 'net'
