@@ -48,10 +48,8 @@ dependencies {
 //    }
 //}
 
-task wrapper(type: Wrapper) {
-    description 'Generates gradle wrapper'
-    group 'Build Setup'
-    gradleVersion = '4.5'
+wrapper {
+
 }
 
 // See progress of tests
@@ -135,5 +133,3 @@ artifacts {
     archives javadocJar
     archives sourcesJar
 }
-
-
