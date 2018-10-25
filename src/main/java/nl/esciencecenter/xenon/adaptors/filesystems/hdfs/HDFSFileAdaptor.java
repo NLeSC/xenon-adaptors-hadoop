@@ -95,11 +95,13 @@ public class HDFSFileAdaptor extends FileAdaptor {
         XenonProperties prop = new XenonProperties(VALID_PROPERTIES, properties);
         String file = prop.getStringProperty(HADOOP_SETTINGS_FILE);
 
-        try {
-            org.apache.hadoop.fs.Path p = new org.apache.hadoop.fs.Path(file);
-            conf.addResource(p);
-        } catch (IllegalArgumentException e) {
-            throw new XenonException(ADAPTOR_NAME, "Failed to handle hadoop settings file " + file, e);
+        if (!file.equals("")) {
+            try {
+                org.apache.hadoop.fs.Path p = new org.apache.hadoop.fs.Path(file);
+                conf.addResource(p);
+            } catch (IllegalArgumentException e) {
+                throw new XenonException(ADAPTOR_NAME, "Failed to handle hadoop settings file " + file, e);
+            }
         }
 
         String authent = conf.get("hadoop.security.authentication");
