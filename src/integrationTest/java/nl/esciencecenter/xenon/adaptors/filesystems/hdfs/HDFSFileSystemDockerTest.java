@@ -26,45 +26,17 @@ import com.palantir.docker.compose.DockerComposeRule;
 import com.palantir.docker.compose.connection.waiting.HealthChecks;
 
 import nl.esciencecenter.xenon.XenonException;
-import nl.esciencecenter.xenon.adaptors.filesystems.FileSystemTestParent;
-import nl.esciencecenter.xenon.adaptors.filesystems.LocationConfig;
 import nl.esciencecenter.xenon.credentials.Credential;
 import nl.esciencecenter.xenon.credentials.DefaultCredential;
 import nl.esciencecenter.xenon.filesystems.FileSystem;
 import nl.esciencecenter.xenon.filesystems.Path;
 
-public class HDFSFileSystemDockerTest extends FileSystemTestParent {
+public class HDFSFileSystemDockerTest extends HDFSFileSystemParentTest {
 
     @ClassRule
     public static DockerComposeRule docker = DockerComposeRule.builder().file("src/integrationTest/resources/docker-compose/hdfs.yml")
             .waitingForService("hdfs", HealthChecks.toHaveAllPortsOpen()).build();
 
-    @Override
-    protected LocationConfig setupLocationConfig(FileSystem fileSystem) {
-        return new LocationConfig() {
-
-            @Override
-            public Map.Entry<Path, Path> getSymbolicLinksToExistingFile() {
-                // TODO: fix me
-                throw new Error("Symlinks not yet supported on HDFS");
-            }
-
-            @Override
-            public Path getExistingPath() {
-                return new Path("/filesystem-test-fixture/links/file0");
-            }
-
-            @Override
-            public Path getWritableTestDir() {
-                return fileSystem.getWorkingDirectory();
-            }
-
-            @Override
-            public Path getExpectedWorkingDirectory() {
-                return new Path("/filesystem-test-fixture");
-            }
-        };
-    }
 
     @Override
     public FileSystem setupFileSystem() throws XenonException {
@@ -77,5 +49,4 @@ public class HDFSFileSystemDockerTest extends FileSystemTestParent {
         fs.setWorkingDirectory(new Path("/filesystem-test-fixture"));
         return fs;
     }
-
 }
