@@ -1,0 +1,12 @@
+{
+  "license": "Apache-2.0",
+  "title": "Hadoop related adaptors for xenon library",
+  "upload_type": "software",
+  "access_right": "open",
+  "keywords": [
+    "Java",
+    "middleware",
+    "library",
+    "HDFS"
+  ]
+}

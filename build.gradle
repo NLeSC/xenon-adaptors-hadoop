@@ -3,17 +3,22 @@ plugins {
     id 'java-library'
     id 'idea'
     id 'eclipse'
+    // test coverage
+    id 'jacoco'
     // publishing
-    id 'com.jfrog.bintray' version '1.8.0' apply false
+    id 'com.jfrog.bintray' version '1.8.4' apply false
     // code style
-    id 'com.diffplug.gradle.spotless' version '3.8.0'
+    id 'com.diffplug.gradle.spotless' version '3.20.0'
     // license
-    id 'com.github.hierynomus.license' version '0.14.0' 
-    id 'org.unbroken-dome.test-sets' version '1.4.2'
+    id 'com.github.hierynomus.license' version '0.15.0'
+    id 'org.unbroken-dome.test-sets' version '2.1.1'
+    id 'com.github.johnrengelman.shadow' version '4.0.4'
+    // quality
+    id 'org.sonarqube' version '2.7'
 }
 
 version = '3.0.0'
-description = 'Hadoop adaptors for Xenon.'
+description = 'Hadoop adaptors for Xenon'
 
 ext {
     xenonVersion = '3.0.0'
@@ -24,7 +29,7 @@ apply from: 'gradle/adaptor.gradle'
 
 dependencies {
     // Adaptor dependencies.
-    compile group: 'nl.esciencecenter.xenon', name: 'xenon', version: xenonVersion
+    implementation group: 'nl.esciencecenter.xenon', name: 'xenon', version: xenonVersion
   
     api 'org.apache.hadoop:hadoop-client-api:3.1.1'
     implementation 'org.apache.hadoop:hadoop-client-runtime:3.1.1'

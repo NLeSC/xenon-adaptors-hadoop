@@ -10,8 +10,8 @@ defaultTasks 'clean', 'assemble', 'test'
 
 //    METADATA
 // ==============
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenLocal()
@@ -19,9 +19,6 @@ repositories {
     jcenter()
     maven {
         url 'https://dl.bintray.com/palantir/releases' // docker-compose-rule is published on bintray
-    }
-    maven {
-        url 'https://jitpack.io'
     }
 }
 
@@ -42,15 +39,11 @@ dependencies {
 //testSets {
 //    liveTest {
 //        options {
-//            // Pass all -D arguments from gradlew to tests
+//            // Pass all -D arguments from gradlew toa tests
 //            systemProperties(System.getProperties())
 //        }
 //    }
 //}
-
-wrapper {
-
-}
 
 // See progress of tests
 tasks.withType(Test) {
@@ -62,6 +55,7 @@ tasks.withType(Test) {
             showStackTraces true
         }
     }
+    maxParallelForks = 1 // Test classes need same ports, so they can not be run in parallel
 }
 
 spotless {
@@ -105,13 +99,19 @@ licenseFormat.description = "Applies the license found in the header file in fil
 bintray {
     user = System.getenv('BINTRAY_USER')
     key = System.getenv('BINTRAY_KEY')
+    publish = true
     pkg {
         repo = 'xenon'
+        name = 'xenon-adaptors-hadoop'
         userOrg = 'nlesc'
+        desc = 'Hadoop related adaptors for xenon library'
         licenses = ['Apache-2.0']
-        websiteUrl = 'https://nlesc.github.io/Xenon'
-        vcsUrl = 'https://github.com/NLeSC/xenon-adaptors-hadoop.git'
-        issueTrackerUrl = 'https://github.com/NLeSC/xenon-adaptors-hadoop/issues'
+        websiteUrl = 'https://xenon-middleware.github.io/xenon'
+        vcsUrl = 'https://github.com/xenon-middleware/xenon-adaptors-hadoop.git'
+        issueTrackerUrl = 'https://github.com/xenon-middleware/xenon-adaptors-hadoop/issues'
+        githubRepo = 'xenon-middleware/xenon-adaptors-hadoop'
+        githubReleaseNotesFile = 'README.md'
+        publicDownloadNumbers = true
     }
     publications = ['MyPublication']
 }
@@ -119,13 +119,13 @@ tasks.publish.dependsOn 'bintrayUpload'
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
     description "Creates jar file of javadoc"
-    classifier = 'javadoc'
+    archiveClassifier = 'javadoc'
     from javadoc.destinationDir
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     description "Creates jar file of Java sources"
-    classifier = 'sources'
+    archiveClassifier = 'sources'
     from sourceSets.main.allSource
 }
 
